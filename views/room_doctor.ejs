@@ -1,0 +1,46 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <title>Home Page</title> 
+    <style type="text/css" media="screen"> 
+        body { 
+            background-color: skyblue; 
+            text-decoration-color: white; 
+            font-size:7em;  
+        } 
+    </style> 
+    
+    
+</head> 
+<body> 
+    
+    enter other details of <%=name%>
+    
+    <form action="ok" method="POST">
+				<select name="dr_name" onchange="change()">
+                    <option >Dr Khan</option>
+                    <option >Dr Gada</option>
+                    <option >Dr Mehta</option>
+                    <option >Dr Maniar</option>
+                </select>
+				<input type="text" name="room" placeholder="room" >
+               
+                
+				<input type="submit">
+    </form>
+<!--
+    
+    <form method="POST" action="nxt_pg">
+        <input type="submit">
+    </form>
+-->
+    
+<script>
+    function change()
+    {
+        document.getElementbyId("did")
+    }
+    </script>
+</body> 
+    
+</html> 

@@ -1,0 +1,51 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <title>Home Page</title> 
+    <style type="text/css" media="screen"> 
+        td{
+            border:3px solid red;
+            
+        }
+    </style> 
+    
+    
+</head> 
+<body> 
+    
+    
+    <table>
+        <tr>
+            <td>PID</td>   <td><%=pid%></td> 
+        </tr>
+        <tr>
+            <td>Name</td>   <td><%=name%></td> 
+        </tr>
+        <tr>
+            <td>Admit Date</td>   <td><%=ad%></td> 
+        </tr>
+        <tr>
+            <td>Discharge Date</td>   <td><%=dd%></td> 
+        </tr>
+        <tr>
+            <td>Doctor</td>   <td><%=dr%></td> 
+        </tr>
+        <tr>
+            <td>Doctor Charges</td>   <td><%=dr_fee%></td> 
+        </tr>
+        <tr>
+            <td>Room charges</td>   <td><%=room_fee%></td> 
+        </tr>
+    </table>
+    
+
+    
+<script>
+    function change()
+    {
+        document.getElementbyId("did")
+    }
+    </script>
+</body> 
+    
+</html> 
