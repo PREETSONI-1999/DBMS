@@ -38,19 +38,10 @@
 	<body>
 		<div class="login-form">
 			<h1>Patients</h1>
-			<form action="auth1" method="POST">
-				<input type="text" name="phone_no" placeholder="phone_no" required>
-				<input type="text" name="address" placeholder="address" required>
-				<input type="text" name="DOB" placeholder="DOB" required>
+			<form action="auth_doc" method="POST">
 				<input type="text" name="name" placeholder="name" required>
-				<input type="text" name="blood__grp" placeholder="blood_grp" required>
-                <select name="dr_name" onchange="change()">
-                    <option >Dr Khan</option>
-                    <option >Dr Gada</option>
-                    <option >Dr Mehta</option>
-                    <option >Dr Maniar</option>
-                </select>
-				<input type="text" name="type_of" placeholder="type_of" required>
+				<input type="text" name="department" placeholder="department" required>
+				<input type="text" name="fees" placeholder="fees" required>
 				<input type="submit">
 			</form>
 		</div>

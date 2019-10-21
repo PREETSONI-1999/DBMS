@@ -1,0 +1,25 @@
+<html>
+<head>
+<title>views</title>
+    <style>
+        td{
+            border:2px solid red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Inpatients</h1>
+    <table style="width:400px;margin:auto">
+        <thead>
+            <td><b>Patient</b></td>
+            <td><b>Room</b></td>
+        </thead>
+<% for(var i=0; i < data.length; i++) { %>
+   <tr>
+     <td><%= data[i].Name%></td>
+     <td><%= data[i].room%></td>
+   </tr>
+<% } %>
+</table>
+</body>
+</html>

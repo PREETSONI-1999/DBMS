@@ -36,35 +36,51 @@ app.post('/ok', function(request, response) {
     var room=request.body.room;
     var dr=request.body.dr_name;
     console.log(request.session.username);
-    connection.query("SELECT PID FROM patient WHERE name = ' "+request.session.username+" ' ", function (err, result, fields) {
+    
+            
+                
+                
+	connection.query("SELECT PID FROM patient WHERE name = ' "+request.session.username+" ' ", function (err, result, fields) {
     			if (err) throw err;
     			console.log(result);
 			 pid=result[0].PID;
             console.log("pid is " + pid);
-            
-                
-                
+    			
+                        
+ 		         
+        		         
 			         
-			         connection.query("SELECT DID FROM doctor WHERE Name= '"+dr+"'  ", function (err, result, fields) {
-                
-                                
-                console.log("after did from dr" + result);
-    			did=result[0].DID;
-                 console.log("did is " + did);   
-                    connection.query("UPDATE patient SET room = ' "+room+" ' ,sup_doctor=' "+dr+"',DID='"+did+"' WHERE PID = '"+pid+"' ", function (err, result, fields) {
-    			console.log("after update ");
-                console.log(result);
- 		         });
-        
-            });
-        
-        
-			
+        connection.query("UPDATE patient SET room = ' "+room+" '  WHERE PID = '"+pid+"' ", function (err, result, fields) {
+
+
+            console.log("after update ");
+                    console.log(result);
+            response.render('selection');
+
+        });
+    
+    
+    
     });
-    
-    
-    response.send('okk');
 });
+
+
+app.post('/auth_doc', function(request, response) {
+	var name = request.body.name;
+	var dept = request.body.department;
+	var fees= request.body.fees;
+	   
+    
+		connection.query("INSERT INTO doctor (Name, Dept,fee) VALUES (' "+name+" ',' "+dept+" ',' "+fees+" ')", function(error, results, fields) {
+				
+			response.render('selection');
+		});
+        
+});
+
+
+
+
 
 
 app.post('/auth', function(request, response) {
@@ -94,7 +110,7 @@ app.post('/auth', function(request, response) {
 app.get('/home', function(request, response) {
 	if (request.session.loggedin) {
 		console.log("works");
-		response.sendFile(path.join(__dirname + '/selection.html'));
+		response.render('selection');
 	} else {
 		response.send('Please login to view this page!');
 		response.end();
@@ -108,7 +124,12 @@ app.get('/addpatient.html', function(request, response) {
 	
 	
 });
-
+app.get('/adddoctor.html', function(request, response) {
+	
+		response.sendFile(path.join(__dirname + '/adddoctor.html'));
+	
+	
+});
 app.get('/bill.html', function(request, response) {
 	
 		response.sendFile(path.join(__dirname + '/bill.html'));
@@ -170,6 +191,15 @@ app.post('/bill', function(request, response) {
 });
     
 });
+
+app.post('/views', function(request, response) {
+    console.log("hiviews");
+    connection.query("SELECT * from view_patient", function(error, results, fields) {
+			response.render('view_patient',{data:results});	
+		});
+	
+});
+
 app.post('/auth1', function(request, response) {
 	var phone_no = request.body.phone_no;
 	var address = request.body.address;
@@ -177,12 +207,25 @@ app.post('/auth1', function(request, response) {
 	var name = request.body.name;
 	var blood_grp = request.body.blood_grp;
 	var type_of = request.body.type_of;
+    var dr=request.body.dr_name;
+    var did;
+    
         
     
-		connection.query("INSERT INTO patient (phone_no, address,DOB,Name,Blood_grp,type) VALUES (' "+phone_no+" ',' "+address+" ',' "+DOB+" ',' "+name+" ',' "+blood_grp+" ',' "+type_of+" ')", function(error, results, fields) {
-				
+		
+				connection.query("SELECT DID FROM doctor WHERE Name= '"+dr+"'  ", function (err, result, fields) {
+                
+                                
+                console.log("after did from dr");
+                console.log(result);
+    			did=result[0].DID;
+                 connection.query("INSERT INTO patient (phone_no, address,DOB,Name,Blood_grp,sup_doctor,type,DID) VALUES (' "+phone_no+" ',' "+address+" ',' "+DOB+" ',' "+name+" ',' "+blood_grp+" ',' "+dr+" ',' "+type_of+" ',' "+did+" ')", function(error, results, fields) {
+        
+            });
 			
 		});
+    
+        
         request.session.username=name;
         if(type_of=="admit")
             {   
@@ -191,11 +234,11 @@ app.post('/auth1', function(request, response) {
                 
             }
         else{
-                connection.query("SELECT PID FROM patient WHERE name = ' "+name+" ' ", function (err, result, fields) {
+                connection.query("SELECT PID FROM patient WHERE Name = ' "+name+" ' ", function (err, result, fields) {
     			if (err) throw err;
     			console.log(result);
 			
-			response.render('show', {name:name,id:result[0].PID});
+			response.render('selection');
  		 });
         }
 		
